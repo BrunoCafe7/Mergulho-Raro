@@ -49,3 +49,12 @@ Faça commit para gerar novo deploy. Também verifique em Workers & Pages → Wo
 - GitHub e Cloudflare não foram acessados/publicados por este pacote; configure suas contas no navegador.
 
 Referências: https://developers.cloudflare.com/workers/ci-cd/builds/ e https://developers.cloudflare.com/workers/wrangler/configuration/ .
+
+
+## Atualização V4
+- Ao concluir as sete rodadas do **desafio diário**, a janela de apelido abre automaticamente.
+- Depois de enviar, o jogo navega ao placar global, marcando a posição do jogador (inclusive fora do top 30).
+- O jogo reconhece novas respostas, algumas abreviações e pequenas variações de escrita. O mesmo código de validação é importado pelo servidor e pelo cliente.
+- Basta substituir o conteúdo do repositório existente com estes arquivos e fazer commit na branch principal. **Não recrie o banco D1 nem execute novamente o SQL**.
+- A mudança não adiciona colunas no banco. Mantém placares existentes.
+- Ainda há respostas possíveis ausentes do catálogo e a raridade é editorial, não baseada em estatísticas reais.
