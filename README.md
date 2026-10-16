@@ -58,3 +58,16 @@ Referências: https://developers.cloudflare.com/workers/ci-cd/builds/ e https://
 - Basta substituir o conteúdo do repositório existente com estes arquivos e fazer commit na branch principal. **Não recrie o banco D1 nem execute novamente o SQL**.
 - A mudança não adiciona colunas no banco. Mantém placares existentes.
 - Ainda há respostas possíveis ausentes do catálogo e a raridade é editorial, não baseada em estatísticas reais.
+
+
+## Publicidade (V5)
+Veja `GUIA-ADSENSE.md`. A configuracao fica em `public/ads-config.mjs`. Nenhuma mudanca no D1 e necessaria.
+
+## Atualização V6
+- Nova pontuação com **bônus de tempo**: quanto mais cedo responder, mais pontos extras naquela rodada.
+- Novo sistema de **combo**: respostas reconhecidas em sequência aumentam o multiplicador de combo, gerando bônus adicionais.
+- O **ranking online** usa a mesma lógica da interface, então a pontuação exibida ao jogador e a gravada no D1 permanecem alinhadas.
+- Nova interface de resultado por rodada, mostrando **Base + Tempo + Combo**.
+- O submarino agora **desce progressivamente** conforme a pontuação aumenta, e o oceano escurece por profundidade.
+- Banco ampliado para **80 categorias** e mais de **2 mil respostas cadastradas/aceitas**.
+- **Não é necessário recriar o banco D1** nem rodar novo SQL. Basta substituir os arquivos do repositório, fazer commit e aguardar o deploy automático da Cloudflare.
