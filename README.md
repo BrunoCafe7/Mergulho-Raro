@@ -71,3 +71,21 @@ Veja `GUIA-ADSENSE.md`. A configuracao fica em `public/ads-config.mjs`. Nenhuma 
 - O submarino agora **desce progressivamente** conforme a pontuação aumenta, e o oceano escurece por profundidade.
 - Banco ampliado para **80 categorias** e mais de **2 mil respostas cadastradas/aceitas**.
 - **Não é necessário recriar o banco D1** nem rodar novo SQL. Basta substituir os arquivos do repositório, fazer commit e aguardar o deploy automático da Cloudflare.
+
+
+## V7 — INSTALAÇÃO (LEIA ANTES DO COMMIT)
+
+**Esta atualização exige uma migração no D1 existente antes de publicar a V7.**
+
+1. Cloudflare → Storage & databases → D1 → banco `mergulho-raro` → Console.
+2. Abra o arquivo `BANCO-D1-ATUALIZACAO-V7.sql` e copie TODO o SQL para o console. Execute. Isso preserva os registros, amplia o limite antigo de pontuação (700) e cria `answer_suggestions`.
+3. No GitHub, na raiz do repositório atual, envie o conteúdo extraído deste ZIP (mesmas pastas e arquivos) e faça commit. O deploy automático da Cloudflare então publicará a V7.
+4. Confira `/api/health`; faça uma partida, envie o resultado e teste HOJE, SEMANA e MÊS no ranking.
+5. Para revisar sugestões, abra o console D1 e execute: `SELECT id,question,answer,created_at FROM answer_suggestions WHERE status='pending' ORDER BY created_at DESC LIMIT 100;`.
+6. Para aprovar uma resposta, adicione-a ao array da pergunta em `public/questions.mjs` (com raridade apropriada) e publique outro commit; opcionalmente marque a sugestão revisada com `UPDATE answer_suggestions SET status='approved' WHERE id=123;`.
+
+**Novidades:** 134 categorias, 3.162 respostas, sugestão de resposta não reconhecida, rankings diário/semanal/mensal, animação de descida entre rodadas com bolhas e zonas do oceano. Os anúncios AdSense da V5 continuam no pacote, mantendo `public/ads-config.mjs`.
+
+**Limites importantes:** não é possível cobrir literalmente todas as respostas possíveis com um catálogo fechado. Raridade é definida editorialmente, não por estatística de jogadores. A API recalcula a pontuação, mas os tempos enviados pelo navegador ainda não têm validação independente e podem ser adulterados: não use o ranking para distribuição de prêmios. Ranking semanal/mensal agrega por apelido, não por conta autenticada. Os resultados diários gerados antes da V7 não têm o bônus de tempo, mas são preservados; por isso comparações com rankings históricos são apenas indicativas.
+
+**Importante:** `BANCO-D1-COLE-NO-PAINEL.sql` é apenas para instalação NOVA. Para um banco já no ar use EXCLUSIVAMENTE `BANCO-D1-ATUALIZACAO-V7.sql`.
